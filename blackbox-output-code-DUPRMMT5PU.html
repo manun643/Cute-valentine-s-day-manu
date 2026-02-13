@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Valentine's Day</title>
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #FFFDD0; /* Cream */
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        section {
+            padding: 60px 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Mobile-first responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 40px 0;
+            }
+        }
+
+        /* Header with Music Toggle */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .music-toggle {
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4); /* Soft pink to pastel red */
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        #hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        #hero p {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+        }
+        /* Floating Hearts Animation */
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            font-size: 2em;
+            animation: float 6s infinite ease-in-out;
+        }
+        .heart:nth-child(odd) { animation-delay: -2s; }
+        .heart:nth-child(even) { animation-delay: -4s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(10deg); opacity: 1; }
+        }
+
+        /* Our Story Section */
+        #our-story {
+            background-color: white;
+        }
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .story-card {
+            background-color: #FFB6C1;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .story-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Reasons I Love You Section */
+        #reasons {
+            background-color: #FFFDD0;
+        }
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .reason-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .reason-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .reason-card .heart-icon {
+            font-size: 2em;
+            color: #FF69B4;
+            margin-bottom: 10px;
+        }
+
+        /* Love Letter Section */
+        #love-letter {
+            background-color: #FFB6C1;
+            color: white;
+        }
+        .letter {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5em;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.8;
+        }
+
+        /* Memories Gallery */
+        #memories {
+            background-color: white;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .memory-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        .memory-img:nth-child(1) { animation-delay: 0.2s; }
+        .memory-img:nth-child(2) { animation-delay: 0.4s; }
+        .memory-img:nth-child(3) { animation-delay: 0.6s; }
+        .memory-img:nth-child(4) { animation-delay: 0.8s; }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Forever Promise Section */
+        #promise {
+            background-color: #FFFDD0;
+            text-align: center;
+        }
+        .promise-text {
+            font-size: 1.5em;
+            max-width: 600px;
+        }
+
+        /* Final Surprise Section */
+        #surprise {
+            background-color: #FF69B4;
+            color: white;
+            text-align: center;
+        }
+        .surprise-btn {
+            background-color: white;
+            color: #FF69B4;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .surprise-btn:hover {
+            background-color: #FFB6C1;
+        }
+        .hidden-message {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.5em;
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Heart Particles (Simple CSS Animation) */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .particle {
+            position: absolute;
+            font-size: 1em;
+            color: rgba(255, 182, 193, 0.5);
+            animation: particleFloat 10s infinite linear;
+        }
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>❤️ Valentine's Day ❤️</h1>
+        <div class="music-toggle" onclick="toggleMusic()">🎵 Toggle Music</div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <h1>To the Love of My Life ❤️</h1>
+            <p>Every moment with you is a treasure I hold dear.</p>
+        </div>
+        <div class="floating-hearts">
+            <div class="heart" style="left: 10%; animation-duration: 8s;">❤️</div>
+            <div class="heart" style="left: 20%; animation-duration: 7s;">💖</div>
+            <div class="heart" style="left: 30%; animation-duration: 9s;">❤️</div>
+            <div class="heart" style="left: 40%; animation-duration: 6s;">💖</div>
+            <div class="heart" style="left: 50%; animation-duration: 10s;">❤️</div>
+            <div class="heart" style="left: 60%; animation-duration: 8s;">💖</div>
+            <div class="heart" style="left: 70%; animation-duration: 7s;">❤️</div>
+            <div class="heart" style="left: 80%; animation-duration: 9s;">💖</div>
+            <div class="heart" style="left: 90%; animation-duration: 6s;">❤️</div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="our-story">
+        <div class="container">
+            <h2>Our Story</h2>
+            <div class="timeline">
+                <div class="story-card">
+                    <h3>How We Met</h3>
+                    <p>Placeholder: The day our paths crossed under the stars.</p>
+                </div>
+                <div class="story-card">
+                    <h3>First Hug</h3>
+                    <p>Placeholder: That warm embrace that changed everything.</p>
+                </div>
+                <div class="story-card">
+                    <h3>First Kiss</h3>
+                    <p>Placeholder: A magical moment etched in time.</p>
+                </div>
+                <div class="story-card">
+                    <h3>Special Moments</h3>
+                    <p>Placeholder: Adventures, laughter, and endless love.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reasons I Love You Section -->
+    <section id="reasons">
+        <div class="container">
+            <h2>Reasons I Love You</h2>
+            <div class="reasons-grid">
+                <div class="reason-card">
+                    <div class="heart-icon">❤️</div>
+                    <p>Your smile lights up my world.</p>
+                </div>
+                <div class="reason-card">
+                    <div class="heart-icon">💖</div>
+                    <p>Your kindness knows no bounds.</p>
+                </div>
+                <div class="reason-card">
+                    <div class="heart-icon">❤️</div>
+                    <p>Your laughter is my favorite melody.</p>
+                </div>
+                <div class="reason-card">
+                    <div class="heart-icon">💖</div>
+                    <p>You make every day an adventure.</p>
+                </div>
+                <div class="reason-card">
+                    <div class="heart-icon">❤️</div>
+                    <p>Your love inspires me to be better.</p>
+                </div>
+                <div class="reason-card">
+                    <div class="heart-icon">💖</div>
+                    <p>You're my forever and always.</p>
+                </div>
+                <div class="reason-card">
+                    <div class="heart-icon">❤️</div>
+                    <p>Your eyes hold the universe.</p>
+                </div>
+                <div class="reason-card">
+                    <div class="heart-icon">💖</div>
+                    <p>You complete me in every way.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Love Letter Section -->
+    <section id="love-letter">
+        <div class="container">
+            <h2>My Love Letter to You</h2>
+            <div class="letter">
+                Dearest Love,<br><br>
+                From the moment I met you, my heart knew it had found its home. Your presence fills my days with joy, and your absence leaves a void that only your return can fill. I cherish every laugh, every touch, every whispered secret. You are my everything, my forever love.<br><br>
+                With all my heart,<br>
+                Your Eternal Admirer
+            </div>
+        </div>
+    </section>
+
+    <!-- Memories Gallery -->
+    <section id="memories">
+        <div class="container">
+            <h2>Our Memories</h2>
+            <div class="gallery">
+                <img src="https://via.placeholder.com/300x200/FFB6C1/FFFFFF?text=Memory+1" alt="Memory 1" class="memory-img">
+                <img src="https://via.placeholder.com/300x200/FF69B4/FFFFFF?text=Memory+2" alt="Memory 2" class="memory-img">
+                <img src="https://via.placeholder.com/300x200/FFB6C1/FFFFFF?text=Memory+3" alt="Memory 3" class="memory-img">
+                <img src="https://via.placeholder.com/300x200/FF69B4/FFFFFF?text=Memory+4" alt="Memory 4" class="memory-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Forever Promise Section -->
+    <section id="promise">
+        <div class="container">
+            <h2>Forever Promise</h2>
+            <div class="promise-text">
+                I promise to love you unconditionally, to stand by your side through every storm, and to cherish every moment we share. You are my heart, my soul, my forever.
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Surprise Section -->
+    <section id="surprise">
+        <div class="container">
+            <h2>Final Surprise</h2>
+            <button class="surprise-btn" onclick="revealSurprise()">Click for a Surprise 💝</button>
+            <div id="hidden-message" class="hidden-message">
+                Surprise! You are the love of my life, and I can't wait to spend eternity with you. ❤️
+            </div>
+        </div>
+    </section>
+
+    <!-- Heart Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Audio for Background Music -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav"> <!-- Placeholder: Replace with a romantic instrumental MP3 -->
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Music Toggle Function
+        let musicPlaying = false;
+        const audio = document.getElementById('bg-music');
+        function toggleMusic() {
+            if (musicPlaying) {
+                audio.pause();
+                musicPlaying = false;
+            } else {
+                audio.play();
+                musicPlaying = true;
+            }
+        }
+
+        // Reveal Surprise Function
+        function revealSurprise() {
+            const message = document.getElementById('hidden-message');
+            message.style.display = 'block';
+        }
+
+        // Generate Heart Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.textContent = '❤️';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
+</body>
+</html>
